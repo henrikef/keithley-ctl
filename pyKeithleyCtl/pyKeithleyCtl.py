@@ -10,7 +10,8 @@ class KeithleySupply():
     
     
     def __init__(self, address, n_ch=1, visa_resource_manager=VISA_RM):
-        resource_str = f'TCPIP0::{address:s}::INSTR'
+        #resource_str = f'TCPIP0::{address:s}::INSTR'
+        resource_str = f'USB0::0x05E6::0x2450::04418791::INSTR'
         #print(f"Building {resource_str}")
         self.resource = VISA_RM.open_resource(resource_str, write_termination='\n', read_termination='\n')
 
@@ -103,7 +104,7 @@ class KeithleyArray():
 
         self.supply_handlers = []
         for supply in supply_cfg:
-            ps = KeithleySupply(supply_cfg[supply]['IP'], supply_cfg[supply]['NCH'])   
+            ps = KeithleySupply(supply_cfg[supply]['IP'], supply_cfg[supply]['NCH'])
             print(ps.IDENTITY)
 
             for ch in range(ps.n_ch):
