@@ -4,12 +4,12 @@ import yaml
 import time
 
 VISA_RM = visa.ResourceManager('@py')
-class RigolSupply():
+class KeithleySupply():
     
     '''Used to control a single Rigol PSU.'''
     
     
-    def __init__(self, address, n_ch, visa_resource_manager=VISA_RM):
+    def __init__(self, address, n_ch=1, visa_resource_manager=VISA_RM):
         resource_str = f'TCPIP0::{address:s}::INSTR'
         #print(f"Building {resource_str}")
         self.resource = VISA_RM.open_resource(resource_str, write_termination='\n', read_termination='\n')
@@ -29,9 +29,6 @@ class RigolSupply():
     def IDN(self):
         return self.query("*IDN?")
     
-    @property
-    def IP(self):
-        return self.query(":SYSTem:COMMunicate:LAN:IPADdress?")
     
     @property
     def IDENTITY(self):
@@ -66,7 +63,7 @@ class RigolSupply():
         return [self.query(f":OUTP:OCP:VAL? CH{ch+1}") for ch in range(self.n_ch)]
 
     
-class RigolArray():    
+class KeithleyArray():
     
     '''
     
@@ -106,7 +103,7 @@ class RigolArray():
 
         self.supply_handlers = []
         for supply in supply_cfg:
-            ps = RigolSupply(supply_cfg[supply]['IP'], supply_cfg[supply]['NCH'])   
+            ps = KeithleySupply(supply_cfg[supply]['IP'], supply_cfg[supply]['NCH'])   
             print(ps.IDENTITY)
 
             for ch in range(ps.n_ch):

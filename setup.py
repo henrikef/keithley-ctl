@@ -5,12 +5,12 @@ def readme():
     with open('README.md') as f:
         return f.read()
 
-setup(name='pyRigolCtl',
-      version='0.1',
-      description='Provides an interface to Rigol DP8xx power supplies.',
+setup(name='pyKeithleyCtl',
+      version='0.0.1',
+      description='Provides an interface to Keithley source meter',
       long_description=readme(),
-      author='Sean Griffin',
-      author_email='sean.c.griffin@gmail.com',
-      packages=['pyRigolCtl'],
+      author='Henrike Fleischhack',
+      author_email='fleischhack@cua.edu',
+      packages=['pyKeithleyCtl'],
       install_requires=['pyvisa', 'pyvisa-py', 'pyyaml','numpy'],
       )
