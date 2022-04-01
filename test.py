@@ -32,6 +32,5 @@ PS.disable_output()
 
 data = PS.to_csv(data, nRow)
 
-print(data[:,0])
-
+print(data)
 PS.close()
