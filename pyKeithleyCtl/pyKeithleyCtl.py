@@ -84,7 +84,7 @@ class KeithleySupply():
     def start_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
         self.tell('SENS:FUNC "CURR"')
         self.tell("SENS:CURR:RANG:AUTO ON")
-        self.tell(':TRACE:DELete "myBuffer"')
+        #self.tell(':TRACE:DELete "myBuffer"')
         
         bufferSize = int(2.0*max_duration_s/delay_s)
         
