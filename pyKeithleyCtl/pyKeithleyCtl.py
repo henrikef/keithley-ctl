@@ -81,17 +81,17 @@ class KeithleySupply():
     def get_ocp(self):
         return self.ask(':SOURCe:VOLTage:ILIMit?')
         
-    def track_current(self, duration_s = 60, delay_s = 0.2):
+    def track_current(self, max_duration_s = 60, delay_s = 0.2):
         self.tell('SENS:FUNC "CURR"')
         self.tell('SENS:CURR:RANG:AUTO ON')
         self.tell(':TRACE:DELelte "testData4')
         
-        buffer = int(2*duration_s/delay_s)
+        buffer = int(2.0*max_duration_s/delay_s)
         self.tell(f'TRACE:MAKE "testData4", {buffer}')
-        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, {delay_s}, "testData4"')
+        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, {delay_s:f}, "testData4"')
         self.init()
         #self.wait()
-        time.sleep(duration_s)
+        time.sleep(max_duration_s)
         self.write("*TRG")
         nRow = int(self.ask(':TRAC:ACTUAL? "testData4"') )
         nCol = 3
