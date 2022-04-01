@@ -83,7 +83,7 @@ class KeithleySupply():
         self.tell("SENS:CURR:RANG:AUTO ON")
         
         buffer = int(2*duration_s/delay_s)
-        self.tell(f'TRACE:MAKE "testData" 10')
+        self.tell(f'TRACE:MAKE "testData", 10')
         #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
         #self.tell(f"TRIG:LOAD SimpleLoop, {duration_s}, {delay_s}")
         self.tell('TRIG:LOAD "SimpleLoop", 10, "testData"')
