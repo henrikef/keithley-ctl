@@ -86,13 +86,13 @@ class KeithleySupply():
         self.tell(f'TRACE:MAKE "testData2", 10')
         #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
         #self.tell(f"TRIG:LOAD SimpleLoop, {duration_s}, {delay_s}")
-        self.tell('TRIG:LOAD "SimpleLoop", 10, "testData2"')
+        self.tell('TRIG:LOAD "SimpleLoop", 10, 0.2, "testData2"')
         self.init()
         self.wait()
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
-        first, last = 1, buffer
+        #first, last = 1, buffer
         #return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
-        return self.query('TRAC:DATA? 1, 10, "testData2", "SOUR", "READ", "REL"')
+        return self.query('TRAC:DATA? 1, 10, "testData2", SOUR, READ, REL')
         #return self.query('TRAC:DATA? 1, 10, "testData"')
 
 class KeithleyArray():
