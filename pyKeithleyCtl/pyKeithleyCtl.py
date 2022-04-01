@@ -38,7 +38,7 @@ class KeithleySupply():
     def IDENTITY(self):
         return f"IDN: {self.IDN.split(',')[-2]} IP: {self.IP}"
         
-    def ask(self, question, verbose=True):
+    def ask(self, question, verbose=False):
         response = self.query(question)
         if verbose:
             print("Question: {0:s} - Response: {1:s}".format(question, str(response)))
@@ -81,29 +81,30 @@ class KeithleySupply():
     def get_ocp(self):
         return self.ask(':SOURCe:VOLTage:ILIMit?')
         
-    def track_current(self, max_duration_s = 60, delay_s = 0.05):
+    def start_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
         self.tell('SENS:FUNC "CURR"')
         self.tell('SENS:CURR:RANG:AUTO ON')
-        self.tell(':TRACE:DELelte "testData4')
+        self.tell(':TRACE:DELete "testData')
         
-        buffer = int(2.0*max_duration_s/delay_s)
+        bufferSize = int(2.0*max_duration_s/delay_s)
         
-        print(f'TRACE:MAKE "testData4", {buffer}' )
+        print(f'TRACE:MAKE "testData", {bufferSize}' )
         print(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, 1, "testData4"' )
         
-        self.tell(f'TRACE:MAKE "testData4", {buffer}')
-        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, 1, "testData4"')
+        self.tell(f'TRACE:MAKE "testData", {bufferSize}')
+        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, 1, "testData"')
         self.init()
-        #self.wait()
-        time.sleep(max_duration_s)
-        self.write("*TRG")
-        nRow = int(self.ask(':TRAC:ACTUAL? "testData4"') )
-        nCol = 3
-        result =  self.query(f':TRAC:DATA? 1, {nRow}, "testData4", SOUR, READ, REL')
+
+    def stop_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
+        self.write('*TRG')
+        nRow = int(self.ask(':TRAC:ACTUAL? "testData"') )
+        result =  self.query(f':TRAC:DATA? 1, {nRow}, "testData", REL, TIMT, TST, SEC, SOUR, SOURSTAT, STAT, READ')
+        
+        return result, nRow
+
+    def to_csv(self, result, nRow):
         
         data=np.reshape( np.fromstring(result, sep=','), (nRow, nCol) )
-        
-        print(type(data))
         
         return data
 
