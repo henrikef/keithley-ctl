@@ -20,9 +20,10 @@ PS.set_ocp(0.001)
 
 print(1, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 
-PS.start_measurement()
 
 PS.enable_output()
+
+PS.start_measurement()
 
 sleep(1)
 
@@ -30,11 +31,11 @@ sleep(1)
 
 sleep(1)
 
-PS.disable_output()
-
 #print(3, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 
 data = PS.stop_measurement()
+
+PS.disable_output()
 
 data = PS.to_csv(data)
 
