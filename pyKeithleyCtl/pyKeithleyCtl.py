@@ -89,6 +89,7 @@ class KeithleySupply():
         self.tell('TRIG:LOAD "SimpleLoop", 10, 0.2, "testData3"')
         self.init()
         self.wait()
+        self.sleep(5)
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
         #first, last = 1, buffer
         #return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
