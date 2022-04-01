@@ -81,25 +81,25 @@ class KeithleySupply():
     def get_ocp(self):
         return self.ask(":SOURCe:VOLTage:ILIMit?")
         
-    def start_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
+    def start_power_and_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
         self.tell('SENS:FUNC "CURR"')
         self.tell("SENS:CURR:RANG:AUTO ON")
         
         self.tell(':TRACE:DELete "myBuffer"')
         bufferSize = int(2.0*max_duration_s/delay_s)
         
-        print(f'TRACE:MAKE "myBuffer", {bufferSize}' )
-        print(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, 1, "myBuffer"' )
+        seft.enable_output()
         
         self.tell(f'TRACE:MAKE "myBuffer", {bufferSize}' )
         self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, 1, "myBuffer"' )
         self.init()
 
-    def stop_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
+    def stop_power_and_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
         self.write('*TRG')
         nRow = int(self.ask(':TRAC:ACTUAL? "myBuffer"') )
         print(nRow)
         result =  self.ask(f':TRAC:DATA? 1, {nRow}, "myBuffer", REL, SEC, SOUR, SOURSTAT, STAT, READ')
+        self.disable_output()
         
         return result, nRow
 

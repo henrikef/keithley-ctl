@@ -22,25 +22,16 @@ print(1, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 
 
 
-PS.start_measurement()
-sleep(1)
-PS.enable_output()
+PS.start_power_and_measurement()
 
-sleep(5)
+sleep(15)
 
-#print(2, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
-
-sleep(1)
-
-#print(3, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
-
-PS.clear()
-data, nRow = PS.stop_measurement()
+data, nRow = PS.stop_power_and_measurement()
 
 PS.disable_output()
 
 data = PS.to_csv(data, nRow)
 
-print(data)
+print(data[:,0])
 
 PS.close()
