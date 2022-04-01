@@ -38,7 +38,7 @@ class KeithleySupply():
     def IDENTITY(self):
         return f"IDN: {self.IDN.split(',')[-2]} IP: {self.IP}"
         
-    def ask(self, question, verbose=False):
+    def ask(self, question, verbose=True):
         response = self.query(question)
         if verbose:
             print("Question: {0:s} - Response: {1:s}".format(question, str(response)))
@@ -98,7 +98,8 @@ class KeithleySupply():
     def stop_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
         self.write('*TRG')
         nRow = int(self.ask(':TRAC:ACTUAL? "myBuffer"') )
-        result =  self.query(f':TRAC:DATA? 1, {nRow}, "myBuffer", REL, TIME, TST, SEC, SOUR, SOURSTAT, STAT, READ')
+        print(nRow)
+        result =  self.ask(f':TRAC:DATA? 1, {nRow}, "myBuffer", REL, TIME, TST, SEC, SOUR, SOURSTAT, STAT, READ')
         
         return result, nRow
 
