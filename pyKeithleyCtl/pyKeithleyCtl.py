@@ -89,13 +89,13 @@ class KeithleySupply():
         buffer = int(2.0*max_duration_s/delay_s)
         
         print(f'TRACE:MAKE "testData4", {buffer}' )
-        print(f':TRIGger:LOAD "LoopUntilEvent", COMM, 0, ENT, {delay_s:f}, "testData4"' )
+        print(f':TRIGger:LOAD "LoopUntilEvent", COMM, 0, NEV, {delay_s:f}, "testData4"' )
         
         self.tell(f'TRACE:MAKE "testData4", {buffer}')
-        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 0, ENT, {delay_s:f}, "testData4"')
+        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 0, NEV, {delay_s:f}, "testData4"')
         self.init()
         #self.wait()
-        time.sleep(max_duration_s)
+        #time.sleep(max_duration_s)
         self.write("*TRG")
         nRow = int(self.ask(':TRAC:ACTUAL? "testData4"') )
         nCol = 3
