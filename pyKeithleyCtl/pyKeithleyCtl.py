@@ -86,7 +86,7 @@ class KeithleySupply():
         #self.tell(f"TRACE:MAKE \"testData\" {buffer} ")
         #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
         #self.tell(f"TRIG:LOAD SimpleLoop, {duration_s}, {delay_s}")
-        self.tell("TRIG:LOAD SimpleLoop, 10)
+        self.tell("TRIG:LOAD SimpleLoop, 10")
         self.init()
         self.wait()
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
