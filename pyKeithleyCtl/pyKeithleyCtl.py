@@ -80,11 +80,10 @@ class KeithleySupply():
         
     def track_current(self, duration_s = 60, delay_s = 0.2):
         self.tell('SENS:FUNC "CURR"')
-        self.tell("SENS:CURR:RANG:AUTO ON")
+        self.tell('SENS:CURR:RANG:AUTO ON')
         
         buffer = int(2*duration_s/delay_s)
         self.tell(f'TRACE:MAKE "testData", 10')
-        self.init()
         #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
         #self.tell(f"TRIG:LOAD SimpleLoop, {duration_s}, {delay_s}")
         self.tell('TRIG:LOAD "SimpleLoop", 10, "testData"')
@@ -93,8 +92,8 @@ class KeithleySupply():
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
         first, last = 1, buffer
         #return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
-        #return self.query('TRAC:DATA? 1, 10, "testData", SOUR, READ, REL')
-        return self.query('TRAC:DATA? 1, 10, "testData"')
+        return self.query('TRAC:DATA? 1, 10, "testData", "SOUR", "READ", "REL"')
+        #return self.query('TRAC:DATA? 1, 10, "testData"')
 
 class KeithleyArray():
     
