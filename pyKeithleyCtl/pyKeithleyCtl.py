@@ -91,7 +91,7 @@ class KeithleySupply():
         #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
         #self.tell(f"TRIG:LOAD SimpleLoop, {duration_s}, {delay_s}")
         #self.tell('TRIG:LOAD "SimpleLoop", 10, 0.2, "testData3"')
-        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, {delay_s} "testData3"')
+        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, {delay_s}, "testData3"')
         self.init()
         self.wait()
         time.sleep(10)
