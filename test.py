@@ -34,7 +34,7 @@ PS.disable_output()
 
 print(3, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 
-data = PS.end_measurement()
+data = PS.stop_measurement()
 
 data = PS.to_csv(data)
 
