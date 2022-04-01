@@ -80,14 +80,15 @@ class KeithleySupply():
         
     def track_current(self, duration_s = 60, delay_s = 0.2):
         self.tell("SENS:FUNC CURR")
-        buffer = int(2*duration_s/delay_s)
-        self.tell(f"TRACE:MAKE \"testData\" {buffer} ")
-        self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
+        #buffer = int(2*duration_s/delay_s)
+        #self.tell(f"TRACE:MAKE \"testData\" {buffer} ")
+        #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
+        self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s} ")
         self.init()
         self.wait()
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
         first, last = 1, buffer
-        return self.query(f"TRACE:DATA? {first} {last} \"testData\" READ, REL, SOURSTAT")
+        return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
 
 class KeithleyArray():
     
