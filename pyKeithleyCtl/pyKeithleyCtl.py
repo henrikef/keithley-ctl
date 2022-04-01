@@ -92,7 +92,8 @@ class KeithleySupply():
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
         first, last = 1, buffer
         #return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
-        return self.query('TRAC:DATA? 1, 10, "testData", SOUR, READ, REL')
+        #return self.query('TRAC:DATA? 1, 10, "testData", SOUR, READ, REL')
+        return self.query('TRAC:DATA? 1, 10, "testData"')
 
 class KeithleyArray():
     
