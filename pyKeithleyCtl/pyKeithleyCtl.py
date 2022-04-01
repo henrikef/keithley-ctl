@@ -94,7 +94,7 @@ class KeithleySupply():
         self.init()
         self.wait()
         time.sleep(5)
-        nRow = self.ask(':TRAC:ACTUAL? "testData3"') 
+        nRow = int(self.ask(':TRAC:ACTUAL? "testData3"') )
         nCol = 3
 
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
