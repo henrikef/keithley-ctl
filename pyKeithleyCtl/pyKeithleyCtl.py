@@ -44,26 +44,42 @@ class KeithleySupply():
     def tell(self, statement):
         return self.write(statement)
     
-    def enable_output(self, ch):
-        return self.tell(f"OUTP:STAT CH{ch},ON")
+    def reset(self):
+        return self.write("*RST")
     
-    def disable_output(self, ch):
-        return self.tell(f"OUTP:STAT CH{ch},OFF")
+    def init(self):
+        return self.write("INIT")
     
+    def enable_output(self):
+        return self.tell(f"OUTP:STAT ON")
     
-    def set_voltage(self, ch, voltage):
-        self.tell(f":SOURCE{ch}:VOLT {voltage}")
-        
+    def disable_output(self):
+        return self.tell(f"OUTP:STAT OFF")
+    
+    def set_voltage(self, voltage):
+        self.tell(f":SOURCE:FUNC VOLT")
+        self.tell(f":SOURCE:VOLT:DC {voltage}")
+
     def get_voltage(self):
-        return [self.query(f":SOURCE{ch+1}:VOLT?") for ch in range(self.n_ch)]        
+        return self.query(f":SOURCE:VOLT?")]
     
-    def set_ocp(self, ch, ocp):
-        self.tell(f":OUTP:OCP:VAL CH{ch},{ocp}")
+    def measure_current( self ):
+        return self.query(":MEASURE:CURRENT:DC?")
+        
+    def measure_voltage( self ):
+        return self.query(":MEASURE:VOLTAGE:DC?")
+
+    def set_ocp(self, ocp):
+        self.tell(f":SOURCe:VOLTage:ILIMit {ocp}")
     
     def get_ocp(self):
-        return [self.query(f":OUTP:OCP:VAL? CH{ch+1}") for ch in range(self.n_ch)]
+        return self.query(f":SOURCe:VOLTage:ILIMit?")
+        
+    def track_current(self, duration_s = 60, delay_s = 15):
+        self.tell("SENS:FUNC CURR")
+        self.tell("TRIG:LOAD \"DurationLoop\", 10, 0.01)
+        self.init()
 
-    
 class KeithleyArray():
     
     '''
