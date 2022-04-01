@@ -84,26 +84,27 @@ class KeithleySupply():
     def start_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
         self.tell('SENS:FUNC "CURR"')
         self.tell("SENS:CURR:RANG:AUTO ON")
-        self.tell(':TRACE:DELete "testData"')
+        self.tell(':TRACE:DELete "myBuffer"')
         
         bufferSize = int(2.0*max_duration_s/delay_s)
         
-        print(f'TRACE:MAKE "testData", {bufferSize}' )
-        print(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, 1, "testData4"' )
+        print(f'TRACE:MAKE "myBuffer", {bufferSize}' )
+        print(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, 1, "myBuffer"' )
         
-        self.tell(f'TRACE:MAKE "testData", {bufferSize}')
-        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, 1, "testData"')
+        self.tell(f'TRACE:MAKE "myBuffer", {bufferSize}' )
+        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, 1, "myBuffer"' )
         self.init()
 
     def stop_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
         self.write('*TRG')
-        nRow = int(self.ask(':TRAC:ACTUAL? "testData"') )
-        result =  self.query(f':TRAC:DATA? 1, {nRow}, "testData", REL, TIME, TST, SEC, SOUR, SOURSTAT, STAT, READ')
+        nRow = int(self.ask(':TRAC:ACTUAL? "myBuffer"') )
+        result =  self.query(f':TRAC:DATA? 1, {nRow}, "myBuffer", REL, TIME, TST, SEC, SOUR, SOURSTAT, STAT, READ')
         
         return result, nRow
 
     def to_csv(self, result, nRow):
         
+        nCol=8
         data=np.reshape( np.fromstring(result, sep=','), (nRow, nCol) )
         
         return data
