@@ -93,9 +93,9 @@ class KeithleySupply():
         #self.tell('TRIG:LOAD "SimpleLoop", 10, 0.2, "testData3"')
         self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, {delay_s}, "testData3"')
         self.init()
-        self.wait()
+        #self.wait()
         time.sleep(10)
-        self.tell("*TRG")
+        self.write("*TRG")
         nRow = int(self.ask(':TRAC:ACTUAL? "testData3"') )
         nCol = 3
 
