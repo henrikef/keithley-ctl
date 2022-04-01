@@ -81,7 +81,7 @@ class KeithleySupply():
     def get_ocp(self):
         return self.ask(':SOURCe:VOLTage:ILIMit?')
         
-    def track_current(self, max_duration_s = 60, delay_s = 0.2):
+    def track_current(self, max_duration_s = 60, delay_s = 1):
         self.tell('SENS:FUNC "CURR"')
         self.tell('SENS:CURR:RANG:AUTO ON')
         self.tell(':TRACE:DELelte "testData4')
