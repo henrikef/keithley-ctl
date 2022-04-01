@@ -26,13 +26,13 @@ PS.enable_output()
 
 sleep(1)
 
-print(2, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
+#print(2, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 
 sleep(1)
 
 PS.disable_output()
 
-print(3, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
+#print(3, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 
 data = PS.stop_measurement()
 
