@@ -58,7 +58,7 @@ class KeithleySupply():
     
     def set_voltage(self, voltage):
         #self.tell(f":SOURCE:FUNC VOLT")
-        self.tell(f":SOURCE:VOLT:DC {voltage}")
+        self.tell(f":SOURCE:VOLT {voltage}")
 
     def get_voltage(self):
         return self.query(f":SOURCE:VOLT?")
