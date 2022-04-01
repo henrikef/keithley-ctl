@@ -18,6 +18,9 @@ class KeithleySupply():
         self.write = self.resource.write
         self.query = self.resource.query
         
+        self.clear = self.resource.clear
+        self.close = self.resource.close
+        
         self.n_ch = n_ch
         
         self.voltages = np.zeros(n_ch)
@@ -43,7 +46,7 @@ class KeithleySupply():
     
     def tell(self, statement):
         return self.write(statement)
-    
+        
     def reset(self):
         return self.write("*RST")
     
