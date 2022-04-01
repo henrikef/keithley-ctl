@@ -3,6 +3,7 @@ from time import sleep
 
 PS = RC.KeithleySupply("169.254.127.39")
 
+PS.clear()
 PS.reset()
 
 print(PS.IDN)
@@ -32,3 +33,5 @@ print(PS.track_current(5))
 PS.disable_output()
 
 print(3, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
+
+PS.close()
