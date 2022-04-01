@@ -35,7 +35,7 @@ class KeithleySupply():
     def IDENTITY(self):
         return f"IDN: {self.IDN.split(',')[-2]} IP: {self.IP}"
         
-    def ask(self, question, verbose=False):
+    def ask(self, question, verbose=True):
         response = self.query(question)
         if verbose:
             print("Question: {0:s} - Response: {1:s}".format(question, str(response)))
