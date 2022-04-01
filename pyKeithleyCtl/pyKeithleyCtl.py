@@ -79,14 +79,14 @@ class KeithleySupply():
         return self.query(f":SOURCe:VOLTage:ILIMit?")
         
     def track_current(self, duration_s = 60, delay_s = 0.2):
-        self.tell("SENS:FUNC CURR")
+        self.tell('SENS:FUNC "CURR"')
         self.tell("SENS:CURR:RANG:AUTO ON")
         
         buffer = int(2*duration_s/delay_s)
         #self.tell(f"TRACE:MAKE \"testData\" {buffer} ")
         #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
         #self.tell(f"TRIG:LOAD SimpleLoop, {duration_s}, {delay_s}")
-        self.tell('TRIG:LOAD SimpleLoop, 10, "defbuffer1"')
+        self.tell('TRIG:LOAD "SimpleLoop", 10, "defbuffer1"')
         self.init()
         self.wait()
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
