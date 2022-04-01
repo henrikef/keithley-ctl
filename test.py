@@ -20,13 +20,13 @@ PS.set_ocp(0.001)
 
 print(1, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 
+PS.enable_output()
 
-
-PS.start_power_and_measurement()
+PS.start_measurement()
 
 sleep(15)
 
-data, nRow = PS.stop_power_and_measurement()
+data, nRow = PS.stop_measurement()
 
 PS.disable_output()
 
