@@ -101,7 +101,9 @@ class KeithleySupply():
         #return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
         result =  self.query(':TRAC:DATA? 1, 10, "testData3", SOUR, READ, REL')
         
-        print(type(result))
+        data=np.fromstring(result)
+        
+        print(type(data))
         
         #return self.query('TRAC:DATA? 1, 10, "testData"')
 
