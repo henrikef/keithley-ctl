@@ -106,7 +106,7 @@ class KeithleySupply():
         
         print(type(data))
         
-        return result
+        return data
 
 class KeithleyArray():
     
