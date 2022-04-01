@@ -84,25 +84,18 @@ class KeithleySupply():
     def track_current(self, duration_s = 60, delay_s = 0.2):
         self.tell('SENS:FUNC "CURR"')
         self.tell('SENS:CURR:RANG:AUTO ON')
+        self.tell(':TRACE:DELelte "testData4')
         
         buffer = int(2*duration_s/delay_s)
-        self.tell(f'TRACE:MAKE "testData4", 10000')
-        print( 'Datapoints:', self.ask(':TRAC:ACTUAL? "testData3"') )
-        #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
-        #self.tell(f"TRIG:LOAD SimpleLoop, {duration_s}, {delay_s}")
-        #self.tell('TRIG:LOAD "SimpleLoop", 10, 0.2, "testData3"')
+        self.tell(f'TRACE:MAKE "testData4", {buffer}')
         self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, {delay_s}, "testData4"')
         self.init()
         #self.wait()
-        time.sleep(10)
+        time.sleep(duration_s)
         self.write("*TRG")
         nRow = int(self.ask(':TRAC:ACTUAL? "testData4"') )
         nCol = 3
-
-        #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
-        #first, last = 1, buffer
-        #return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
-        result =  self.query(':TRAC:DATA? 1, 10, "testData4", SOUR, READ, REL')
+        result =  self.query(f':TRAC:DATA? 1, {nRow}, "testData4", SOUR, READ, REL')
         
         data=np.reshape( np.fromstring(result, sep=','), (nRow, nCol) )
         
