@@ -6,11 +6,11 @@ def readme():
         return f.read()
 
 setup(name='pyKeithleyCtl',
-      version='0.0.1',
+      version='0.1',
       description='Provides an interface to Keithley source meter',
       long_description=readme(),
       author='Henrike Fleischhack',
       author_email='fleischhack@cua.edu',
       packages=['pyKeithleyCtl'],
-      install_requires=['pyvisa', 'pyvisa-py', 'pyyaml','numpy'],
+      install_requires=['pyvisa', 'pyvisa-py', 'pyyaml','numpy', 'pandas'],
       )

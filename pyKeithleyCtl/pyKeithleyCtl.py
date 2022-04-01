@@ -7,7 +7,7 @@ import pandas as pd
 VISA_RM = visa.ResourceManager('@py')
 class KeithleySupply():
     
-    '''Used to control a single Rigol PSU.'''
+    '''Used to control a single Keithley 2450 Source Meter.'''
     
     
     def __init__(self, address, n_ch=1, visa_resource_manager=VISA_RM):
@@ -96,6 +96,9 @@ class KeithleySupply():
         nCol=6
         data=np.reshape( np.fromstring(result, sep=','), (nRow, nCol) )
         
-        df =  pd.DataFrame(data, columns = "REL, SEC, SOUR, SOURSTAT, STAT, READ".split() )
-                
+        df =  pd.DataFrame(data, columns = "REL SEC SOUR SOURSTAT STAT READ".split() )
+        
+        df.SOURSTAT = df.SOURSTAT.astype(int)
+        df.STAT = df.STAT.astype(int)
+    
         return df
