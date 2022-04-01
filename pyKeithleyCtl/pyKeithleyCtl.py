@@ -60,7 +60,7 @@ class KeithleySupply():
         return self.tell(f"OUTP:STAT OFF")
     
     def set_voltage(self, voltage):
-        #self.tell(f":SOURCE:FUNC VOLT")
+        self.tell(f":SOURCE:FUNC VOLT")
         self.tell(f":SOURCE:VOLT {voltage}")
 
     def get_voltage(self):
@@ -83,12 +83,13 @@ class KeithleySupply():
         buffer = int(2*duration_s/delay_s)
         #self.tell(f"TRACE:MAKE \"testData\" {buffer} ")
         #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
-        self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s} ")
+        self.tell(f"TRIG:LOAD DurationLoop, {duration_s}, {delay_s}")
         self.init()
         self.wait()
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
         first, last = 1, buffer
-        return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
+        #return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
+        return self.query(f"TRACE:DATA?")
 
 class KeithleyArray():
     
