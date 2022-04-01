@@ -22,7 +22,7 @@ print(PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 PS.enable_output()
 print(PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 
-sleep(10)
+print( PS.track_current(5))
 
 PS.disable_output()
 

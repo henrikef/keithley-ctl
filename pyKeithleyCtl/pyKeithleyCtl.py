@@ -49,7 +49,10 @@ class KeithleySupply():
     
     def init(self):
         return self.write("INIT")
-    
+        
+    def wait(self):
+        return self.write("*WAI")
+
     def enable_output(self):
         return self.tell(f"OUTP:STAT ON")
     
@@ -75,10 +78,14 @@ class KeithleySupply():
     def get_ocp(self):
         return self.query(f":SOURCe:VOLTage:ILIMit?")
         
-    def track_current(self, duration_s = 60, delay_s = 15):
+    def track_current(self, duration_s = 60, delay_s = 0.2):
         self.tell("SENS:FUNC CURR")
-        self.tell("TRIG:LOAD \"DurationLoop\", 10, 0.01")
+        self.tell("TRACE:MAKE \"testData\" ")
+        self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
         self.init()
+        self.wait()
+        first, last = 1, self.query("TRACE:ACTUAL  \"testData\" ")
+        return self.query(f"TRACE:DATA? {first} {last} \"testData\" READ, REL,S OURSTAT")
 
 class KeithleyArray():
     
