@@ -64,19 +64,19 @@ class KeithleySupply():
         self.tell(f":SOURCE:VOLT {voltage}")
 
     def get_voltage(self):
-        return self.query(f":SOURCE:VOLT?")
+        return self.query(':SOURCE:VOLT?')
     
     def measure_current( self ):
-        return self.query(":MEASURE:CURRENT:DC?")
+        return self.query(':MEASURE:CURRENT:DC?')
         
     def measure_voltage( self ):
-        return self.query(":MEASURE:VOLTAGE:DC?")
+        return self.query(':MEASURE:VOLTAGE:DC?')
 
     def set_ocp(self, ocp):
-        self.tell(f":SOURCe:VOLTage:ILIMit {ocp}")
+        self.tell(f':SOURCe:VOLTage:ILIMit {ocp}')
     
     def get_ocp(self):
-        return self.query(f":SOURCe:VOLTage:ILIMit?")
+        return self.query(':SOURCe:VOLTage:ILIMit?')
         
     def track_current(self, duration_s = 60, delay_s = 0.2):
         self.tell('SENS:FUNC "CURR"')
@@ -84,12 +84,15 @@ class KeithleySupply():
         
         buffer = int(2*duration_s/delay_s)
         self.tell(f'TRACE:MAKE "testData3", 10')
+        print( 'Datapoints:', self.query(':TRAC:ACTUAL? "testData3"') )
         #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
         #self.tell(f"TRIG:LOAD SimpleLoop, {duration_s}, {delay_s}")
         self.tell('TRIG:LOAD "SimpleLoop", 10, 0.2, "testData3"')
         self.init()
-        #self.wait()
+        self.wait()
         time.sleep(5)
+        print( 'Datapoints:', self.query(':TRAC:ACTUAL? "testData3"') )
+
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
         #first, last = 1, buffer
         #return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
