@@ -33,11 +33,11 @@ sleep(1)
 
 #print(3, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 
-data = PS.stop_measurement()
+data, nRow = PS.stop_measurement()
 
 PS.disable_output()
 
-data = PS.to_csv(data)
+data = PS.to_csv(data, nRow)
 
 print(data)
 
