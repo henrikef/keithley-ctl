@@ -3,6 +3,8 @@ from time import sleep
 
 PS = RC.KeithleySupply("169.254.127.39")
 
+PS.reset()
+
 print(PS.IDN)
 
 print("Access level", PS.ask(":SYSTem:ACCess?"))
