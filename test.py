@@ -1,7 +1,7 @@
 import pyKeithleyCtl as RC
 from time import sleep
 
-PS = RC.KeithleySupply("169.254.55.31")
+PS = RC.KeithleySupply("169.254.127.39")
 
 print(PS.IDN)
 
