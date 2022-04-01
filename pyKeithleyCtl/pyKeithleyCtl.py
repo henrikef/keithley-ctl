@@ -67,24 +67,24 @@ class KeithleySupply():
         self.tell(f":SOURCE:VOLT {voltage}")
 
     def get_voltage(self):
-        return self.ask(':SOURCE:VOLT?')
+        return self.ask(":SOURCE:VOLT?")
     
     def measure_current( self ):
-        return self.ask(':MEASURE:CURRENT:DC?')
+        return self.ask(":MEASURE:CURRENT:DC?")
         
     def measure_voltage( self ):
-        return self.ask(':MEASURE:VOLTAGE:DC?')
+        return self.ask(":MEASURE:VOLTAGE:DC?")
 
     def set_ocp(self, ocp):
-        self.tell(f':SOURCe:VOLTage:ILIMit {ocp}')
+        self.tell(f":SOURCe:VOLTage:ILIMit {ocp}")
     
     def get_ocp(self):
-        return self.ask(':SOURCe:VOLTage:ILIMit?')
+        return self.ask(":SOURCe:VOLTage:ILIMit?")
         
     def start_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
         self.tell('SENS:FUNC "CURR"')
-        self.tell('SENS:CURR:RANG:AUTO ON')
-        self.tell(':TRACE:DELete "testData')
+        self.tell("SENS:CURR:RANG:AUTO ON")
+        self.tell(':TRACE:DELete "testData"')
         
         bufferSize = int(2.0*max_duration_s/delay_s)
         
@@ -98,7 +98,7 @@ class KeithleySupply():
     def stop_measurement(self, max_duration_s = 60*60, delay_s = 0.05):
         self.write('*TRG')
         nRow = int(self.ask(':TRAC:ACTUAL? "testData"') )
-        result =  self.query(f':TRAC:DATA? 1, {nRow}, "testData", REL, TIMT, TST, SEC, SOUR, SOURSTAT, STAT, READ')
+        result =  self.query(f':TRAC:DATA? 1, {nRow}, "testData", REL, TIME, TST, SEC, SOUR, SOURSTAT, STAT, READ')
         
         return result, nRow
 
