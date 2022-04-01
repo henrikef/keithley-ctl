@@ -86,14 +86,15 @@ class KeithleySupply():
         self.tell('SENS:CURR:RANG:AUTO ON')
         
         buffer = int(2*duration_s/delay_s)
-        self.tell(f'TRACE:MAKE "testData3", 10')
+        self.tell(f'TRACE:MAKE "testData3", 10000')
         print( 'Datapoints:', self.ask(':TRAC:ACTUAL? "testData3"') )
         #self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
         #self.tell(f"TRIG:LOAD SimpleLoop, {duration_s}, {delay_s}")
-        self.tell('TRIG:LOAD "SimpleLoop", 10, 0.2, "testData3"')
+        #self.tell('TRIG:LOAD "SimpleLoop", 10, 0.2, "testData3"')
+        self.tell(f':TRIGger:LOAD "LoopUntilEvent", COMM, 100, ENT, {delay} "testData3"')
         self.init()
         self.wait()
-        time.sleep(5)
+        time.sleep(10)
         nRow = int(self.ask(':TRAC:ACTUAL? "testData3"') )
         nCol = 3
 
