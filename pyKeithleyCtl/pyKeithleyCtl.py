@@ -61,7 +61,7 @@ class KeithleySupply():
         self.tell(f":SOURCE:VOLT:DC {voltage}")
 
     def get_voltage(self):
-        return self.query(f":SOURCE:VOLT?")]
+        return self.query(f":SOURCE:VOLT?")
     
     def measure_current( self ):
         return self.query(":MEASURE:CURRENT:DC?")
