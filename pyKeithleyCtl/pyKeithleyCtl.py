@@ -77,7 +77,7 @@ class KeithleySupply():
         
     def track_current(self, duration_s = 60, delay_s = 15):
         self.tell("SENS:FUNC CURR")
-        self.tell("TRIG:LOAD \"DurationLoop\", 10, 0.01)
+        self.tell("TRIG:LOAD \"DurationLoop\", 10, 0.01")
         self.init()
 
 class KeithleyArray():
