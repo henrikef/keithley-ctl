@@ -95,6 +95,7 @@ class KeithleySupply():
         self.init()
         self.wait()
         time.sleep(10)
+        self.tell("*TRG")
         nRow = int(self.ask(':TRAC:ACTUAL? "testData3"') )
         nCol = 3
 
