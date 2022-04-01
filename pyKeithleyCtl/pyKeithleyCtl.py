@@ -99,13 +99,13 @@ class KeithleySupply():
         self.write('*TRG')
         nRow = int(self.ask(':TRAC:ACTUAL? "myBuffer"') )
         print(nRow)
-        result =  self.ask(f':TRAC:DATA? 1, {nRow}, "myBuffer", REL, TIME, TST, SEC, SOUR, SOURSTAT, STAT, READ')
+        result =  self.ask(f':TRAC:DATA? 1, {nRow}, "myBuffer", REL, SEC, SOUR, SOURSTAT, STAT, READ')
         
         return result, nRow
 
     def to_csv(self, result, nRow):
         
-        nCol=8
+        nCol=6
         data=np.reshape( np.fromstring(result, sep=','), (nRow, nCol) )
         
         return data

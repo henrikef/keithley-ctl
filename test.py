@@ -25,7 +25,7 @@ PS.enable_output()
 
 PS.start_measurement()
 
-sleep(1)
+sleep(5)
 
 #print(2, PS.get_voltage(), PS.measure_voltage(), PS.measure_current() )
 
