@@ -84,7 +84,7 @@ class KeithleySupply():
         self.tell(f"TRIG:LOAD \"DurationLoop\", {duration_s}, {delay_s}, \"testData\" ")
         self.init()
         self.wait()
-        first, last = 1, self.query("TRACE:ACTUAL  \"testData\" ")
+        first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
         return self.query(f"TRACE:DATA? {first} {last} \"testData\" READ, REL,S OURSTAT")
 
 class KeithleyArray():
