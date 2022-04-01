@@ -94,18 +94,19 @@ class KeithleySupply():
         self.init()
         self.wait()
         time.sleep(5)
-        print( 'Datapoints:', self.ask(':TRAC:ACTUAL? "testData3"') )
+        nRow = self.ask(':TRAC:ACTUAL? "testData3"') )
+        nCol = 3
 
         #first, last = 1, self.query("TRACE:ACTUAL? \"testData\" ")
         #first, last = 1, buffer
         #return self.query(f"TRACE:DATA? {first} {last}, READ, REL, SOURSTAT")
         result =  self.query(':TRAC:DATA? 1, 10, "testData3", SOUR, READ, REL')
         
-        data=np.fromstring(result, sep=',')
+        data=np.reshape( np.fromstring(result, sep=','), (nRow, nCol) )
         
         print(type(data))
         
-        #return self.query('TRAC:DATA? 1, 10, "testData"')
+        return result
 
 class KeithleyArray():
     
